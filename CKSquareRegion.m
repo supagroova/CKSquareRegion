@@ -97,11 +97,27 @@
     return self;
 }
 
+- (id)initRegionWithBoundingCoords:(CLLocationCoordinate2D)neCoord swCoord:(CLLocationCoordinate2D)swCoord identifier:(NSString *)identifier {
+    self = [super init];
+    if (self){
+        
+        _identifier = identifier;
+        
+        // Convert lat and lng ranges to radians
+        _maxLat = neCoord.latitude;
+        _minLat = swCoord.latitude;
+        _maxLng = neCoord.longitude;
+        _minLng = swCoord.longitude;
+    }
+    
+    return self;
+}
+
 // Hit testing
 - (BOOL)containsCoordinate:(CLLocationCoordinate2D)coordinate
 {
-    BOOL inLatRange;
-    BOOL inLngRange;
+    BOOL inLatRange = NO;
+    BOOL inLngRange = NO;
     
     if ((coordinate.latitude <= self.maxLat) && (coordinate.latitude >= self.minLat))
         inLatRange = YES;
